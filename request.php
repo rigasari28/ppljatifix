@@ -2,8 +2,31 @@
 
 
 require 'function.php';
+$id = $_SESSION['id'];
+if (isset($_POST["request"])){
+    
 
-$produk = query(" SELECT * FROM produk ");
+    //var_dump($_POST); 
+    //var_dump($_FILEs);
+    // die;
+    
+    if (tambahrequest ( $_POST) > 0){
+        echo "
+        <script>
+        alert('data behasil ditambahkan');
+        document.location.href = 'cusfurniture.php'
+        </script>
+        ";
+
+    } else {
+        echo "
+        <script>
+        alert('data gagal ditambahkan');
+        document.location.href = 'cusfurniture.php'
+        </script>
+        ";
+    }
+}
 
 
  ?>
@@ -61,11 +84,11 @@ height: 400px
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <ul class="nav nav-tabs" style="background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);">
-        <li role="presentation"><a href="cus.php" style="color: white;">Home</a></li>
+        <li role="presentation"><a href="cus.php" style="color: white;">Beranda</a></li>
         <li role="presentation"><a href="cus_profil.php" style="color:white">Profil </a></li>
         <li role="presentation"><a href="#" style=" text-decoration:none; color: rgb(46, 38, 38);font-family: segoe ui; font-size: 20px">
                 <strong> <i> Furniture </i> </strong> </a></li>
-        <li role="presentation"><a href="#" style="color: white;">Pemesanan</a></li>
+        <li role="presentation"><a href="Cus_Pemesanan.php" style="color: white;">Pemesanan</a></li>
 
         <div id="navbar" class="navbar-collapse collapse" >
 
@@ -89,7 +112,7 @@ height: 400px
     <div class="container">
         <div class="row register-form" id="form">
             <div class="col-md-8 col-md-offset-2">
-                <form class="form-horizontal custom-form" id="form" style="background:rgba(0,9,0,0.3)">
+                <form class="form-horizontal custom-form" id="form" style="background:rgba(0,9,0,0.3)" action="" method="post" enctype="multipart/form-data">
 
                     <img src="./gambar/kranjang.png" width="100" height="100">
 
@@ -99,7 +122,7 @@ height: 400px
                             <label class="control-label" for="name-input-field" style="color:white">Nama</label>
                         </div>
                         <div class="col-sm-6 input-column">
-                            <input class="form-control" type="text">
+                            <input class="form-control" type="text" name="nama" id="nama" required="">
                         </div>
                     </div>
                     <div class="form-group">
@@ -107,29 +130,59 @@ height: 400px
                             <label class="control-label" for="email-input-field" style="color:white">Alamat </label>
                         </div>
                         <div class="col-sm-6 input-column">
-                            <input class="form-control" type="text">
+                            <input class="form-control" type="text" name="alamat" id="alamat" required="">
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <div class="col-sm-4 label-column">
+                            <label class="control-label" for="text-input-field" style="color:white">No Telephone </label>
+                        </div>
+                        <div class="col-sm-6 input-column">
+                            <input class="form-control" type="number" name="telp" id="telp" required="">
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <div class="col-sm-4 label-column">
+                            <label class="control-label" for="number-input-field" style="color:white">No Rekening </label>
+                        </div>
+                        <div class="col-sm-6 input-column">
+                            <input class="form-control" type="text" name="norek" id="norek" required="">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-4 label-column">
-                            <label class="control-label" for="pawssword-input-field" style="color:white">Email
+                            <label class="control-label" for="email-input-field" style="color:white">Email
                             </label>
                         </div>
                         <div class="col-sm-6 input-column">
-                            <input class="form-control" type="email">
+                            <input class="form-control" type="email" name="email" id="email" required="">
                         </div>
                     </div>
 
-                    <div class="form-group">
+                  <div class="form-group">
+                    <label class="control-label" for="referensi" style="color:white">Gambar Kayu</label>
+                    <input type="file" name="referensi" id="referensi" style="color:white" required="">
+                </div>
+                <div class="form-group">
                         <div class="col-sm-4 label-column">
-                            <label class="control-label" for="dropdown-input-field" style="color:white">No Rekening</label>
+                            <label class="control-label" for="number-input-field" style="color:white">Budget
+                            </label>
                         </div>
                         <div class="col-sm-6 input-column">
-                            <input class="form-control" type="text">
+                            <input class="form-control" type="number" name="budget" id="budget" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-4 label-column">
+                            <label class="control-label" for="number-input-field" style="color:white">Lama Pengerjaan
+                            </label>
+                        </div>
+                        <div class="col-sm-6 input-column">
+                            <input class="form-control" type="number" name="waktu" id="waktu" required="">
                         </div>
                     </div>
 
-                    <button class="btn btn-default btn-sm submit-button" type="submit" style="border-radius:10px">Submitt</button>
+                    <button class="btn btn-default btn-sm submit-button" name="request" type="submit" style="border-radius:10px">Beli</button>
                 </form>
             </div>
         </div>

@@ -74,6 +74,77 @@ function tambahpk ($data){
 
 	return mysqli_affected_rows($conn);
 }
+
+function tambahrequest ($data){
+	global $conn;
+	$id = $_SESSION['id'];
+	$nama = htmlspecialchars($data["nama"]);
+	$alamat = htmlspecialchars($data["alamat"]);
+	$telp = htmlspecialchars($data["telp"]);
+	$norek = htmlspecialchars($data["norek"]);
+	$email = htmlspecialchars($data["email"]);
+	$referensi = htmlspecialchars($data["referensi"]);
+	$budget = htmlspecialchars($data["budget"]);
+	$waktu = htmlspecialchars($data["waktu"]);
+
+	$referensi = uploadreferensi();
+	if(! $referensi){
+		return false;
+	}
+		$query ="INSERT INTO request
+			VALUES 
+			('','$id','$nama', '$alamat', '$telp','$norek','$email','$referensi','$budget', '$waktu','menunggu konfirmasi')
+	";
+	mysqli_query($conn, $query);
+
+	return mysqli_affected_rows($conn);
+}
+function uploadreferensi(){
+
+	$namaFile = $_FILES['referensi']['name'];
+	$ukuranFile = $_FILES['referensi']['size'];
+	$error =$_FILES['referensi']['error'];
+	$tmpName = $_FILES['referensi']['tmp_name'];
+
+	//cek upload ada apa nggak
+	if ($error === 4){
+		echo "<script>
+		alert('pilih gambar terlebih dahulu');
+		</script>";
+		return false;
+	}
+	//hanya gambar
+	$ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+	$ekstensiGambar = explode('.', $namaFile);
+	$ekstensiGambar =strtolower(end($ekstensiGambar));
+	if(!in_array($ekstensiGambar, $ekstensiGambarValid)){
+
+		echo "<script>
+		alert('yang anda upload bukan gambar!');
+		</script>";
+		return false;
+	}
+
+	//cek jika ukurannya terlalu besar
+	if ($ukuranFile > 1000000){
+
+		echo "<script>
+		alert('ukuran gambar terlalu besar');
+		</script>";
+		return false;
+	}
+
+	//jika lolos gambar berhasil di upload
+	// generate nama baru
+
+	$namaFileBaru = uniqid();
+	$namaFileBaru .= '.';
+	$namaFileBaru .= $ekstensiGambar;
+
+
+	move_uploaded_file($tmpName, 'gambarrequest/'. $namaFileBaru);
+	return $namaFileBaru;
+}
 function uploadbukti(){
 
 	$namaFile = $_FILES['noper']['name'];
@@ -136,7 +207,7 @@ function tambah($data){
 	}
 	$query ="INSERT INTO produk
 			VALUES 
-			('','$namaproduk', '$hargaproduk', '$stok', '$gambarproduk')
+			('','20','meubel','$namaproduk', '$hargaproduk', '$stok', '$gambarproduk', 'meubel')
 	";
 	mysqli_query($conn, $query);
 
@@ -256,6 +327,7 @@ function ubah($data){
 // }
 function tambahky($data){
 	global $conn;
+	$id = $_SESSION['id'];
 	$identitas = htmlspecialchars($data["identitas"]);
 	$diameter = htmlspecialchars($data["diameter"]);
 	$panjang = htmlspecialchars($data["panjang"]);
@@ -269,7 +341,7 @@ function tambahky($data){
 	}
 	$query ="INSERT INTO kayu
 			VALUES 
-			('','$identitas','$diameter','$panjang', '$hargakayu', '$stokkayu', '$gambarkayu')
+			('','$id','$identitas','$diameter','$panjang', '$hargakayu', '$stokkayu', '$gambarkayu')
 	";
 	mysqli_query($conn, $query);
 
