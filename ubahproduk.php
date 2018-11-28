@@ -55,8 +55,8 @@ if (isset($_POST["editproduk"])){
 <body>
     
    <ul class="nav nav-tabs" style="background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);">
-       <li role="presentation"><a href="admin.php" style="color: white;">Home</a></li>
-        <li role="presentation"><a href="" style="color: white;">Verifikasi</a></li>
+       <li role="presentation"><a href="admin.php" style="color: white;">Beranda</a></li>
+        <li role="presentation"><a href="verifadmin.php" style="color: white;">Verifikasi</a></li>
         <li role="presentation" ><a href="profil.php" style="color: white;">Profil</a></li>
         <li class="dropdown"  class="active">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -68,6 +68,7 @@ if (isset($_POST["editproduk"])){
                     </ul>
                 </li>
         <li role="presentation"><a href="informasi.php" style="color: white;">Informasi</a></li>
+        <li role="presentation"><a href="pemesananmeb.php" style="color: white;">Pemesanan</a></li>
 
          <div id="navbar" class="navbar-collapse collapse" >
 
@@ -99,7 +100,7 @@ if (isset($_POST["editproduk"])){
                             <label class="control-label" for="namaproduk" style="color:white">Nama Produk</label>
                         </div>
                         <div class="col-sm-6 input-column">
-                            <input class="form-control" type="text" name="namaproduk" id="namaproduk" value="<?= $produk["namaproduk"]; ?>">
+                            <input class="form-control" type="text" name="namaproduk" id="namaproduk" value="<?= $produk["namaproduk"]; ?>" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -107,7 +108,7 @@ if (isset($_POST["editproduk"])){
                             <label class="control-label" for="hargaproduk" style="color:white">Harga Produk </label>
                         </div>
                         <div class="col-sm-6 input-column">
-                            <input class="form-control" type="number"  name="hargaproduk" id="hargaproduk" value="<?= $produk["hargaproduk"]; ?>">
+                            <input class="form-control" type="number"  name="hargaproduk" id="hargaproduk" value="<?= $produk["hargaproduk"]; ?>" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -115,14 +116,14 @@ if (isset($_POST["editproduk"])){
                                 <label class="control-label" for="stok" style="color:white">Stok </label>
                             </div>
                             <div class="col-sm-6 input-column">
-                                <input class="form-control" type="number" name="stok" id="stok" value="<?= $produk["stok"]; ?>">
+                                <input class="form-control" type="number" name="stok" id="stok" value="<?= $produk["stok"]; ?>" required>
                             </div>
                         </div>
 
                     <div class="form-group">
                      <label class="control-label" for="gambarproduk" style="color:white">Gambar Produk</label>
                      <img src="gambarproduk/<?= $produk['gambarproduk'];  ?>" style="width: : 300px;"> <br><br>
-                     <input type="file" name="gambarproduk" id="gambarproduk">
+                     <input type="file" name="gambarproduk" id="gambarproduk" >
                     </div>
                        
                             <div class="form-group">

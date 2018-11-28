@@ -64,11 +64,11 @@ height: 500px
     <script src="js/bootstrap.min.js"></script>
 
     <ul class="nav nav-tabs" style="background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);">
-        <li role="presentation"><a href="cus.php" style="color: white;">Home</a></li>
+        <li role="presentation"><a href="cus.php" style="color: white;">Beranda</a></li>
         <li role="presentation"><a href="cus_profil.php" style="color:white">Profil  </a></li>
         <li role="presentation"><a href="#" style=" text-decoration:none; color: rgb(46, 38, 38);font-family: segoe ui; font-size: 20px"> <strong> <i> Furniture </i> </strong> </a>
         </li>
-        <li role="presentation"><a href="#" style="color: white;">Pemesanan</a></li>
+        <li role="presentation"><a href="Cus_Pemesanan.php" style="color: white;">Pemesanan</a></li>
 
         <div id="navbar" class="navbar-collapse collapse" >
 
@@ -86,7 +86,7 @@ height: 500px
         <div class="container">
         <h1> <strong> <i> Lihat Lebih Banyak Lagi Katalog Terbaru Untuk Anda </i> </strong> </h1>
 
-            <h2 style=" color: blue; font-family: calibri">Bisa request model yang diinginkan, klik disini</h2> <br><br>
+            <h2 style=" color: black; font-family: calibri"> <strong> <i> Bisa request model yang diinginkan, klik disini </i> </strong></h2> <br><br>
             <p><a class="btn btn-primary btn-lg" href="request.php" role="button">Request Furniture</a></p>
 
         </div>
@@ -99,7 +99,7 @@ height: 500px
 			<?php  foreach ($produk as $row ):?>
             <div class="col-sm-6 col-md-4" >
                     <div class="thumbnail" >
-                      <img img src="gambarproduk/<?= $row["gambarproduk"];  ?>" alt="...">
+                      <img img src="gambarproduk/<?= $row["gambarproduk"];  ?>" style="width: 200px; height:200px" alt="...">
                       <div class="caption">
                         <h3 style="text-align:center"> <strong> <i> <?= $row["namaproduk"]; ?> </i> </strong></h3>
                        	<h4 style="text-align:center"> <strong> <i> Rp. <?= $row["hargaproduk"]; ?> </i> </strong></h4>
@@ -111,6 +111,7 @@ height: 500px
             <?php $i++;  ?>
 			<?php endforeach; ?>
 
+        </div>
         </div>
         <div class="row" style="background-color: #393e46">
                 <div class="container">

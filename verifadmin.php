@@ -6,9 +6,9 @@ require 'function.php';
 $id = $_SESSION['id'];
 
 
-$request = query(" SELECT * FROM request ");
-
-
+$request = query(" SELECT * FROM request where status = 'menunggu konfirmasi' ");
+$r_pembayaran = query(" SELECT * FROM request where status = 'request diterima, menunggu pembayaran' or status='menunggu konfirmasi pembayaran dari meubel' or status ='verifikasi pembayaran ditolak, mohon upload bukti pembayaran dengan jelas dan benar'");
+$ve_r_pembayaran = query(" SELECT * FROM request where status = 'proses pembayaran berhasil, menunggu proses pengiriman' or status ='proses pengiriman berlangsung'");
 
 
  ?>
@@ -76,7 +76,7 @@ p {
         </div>
     <div class="container">
         <div class="jumbotron">
-            <h2 style="text-align:center; color: white">Data Produk Request</h2>
+            <h2 style="text-align:center; color: white">Verifikasi Awal Produk Request</h2>
 
         </div>
     </div>
@@ -87,7 +87,7 @@ p {
         <tr>
                         <th style="text-align:center">No</th style="text-align:center">
                         <th style="text-align:center">ID </th style="text-align:center">
-                        <th style="text-align:center">Nama</th style="text-align:center">
+                        <th style="text-align:center">Nama Produk</th style="text-align:center">
                         <th style="text-align:center">Gambar Furniture</th style="text-align:center">
                         <th style="text-align:center">Budget</th style="text-align:center">
                         <th style="text-align:center">Lama Pengerjaan</th style="text-align:center">
@@ -101,15 +101,120 @@ p {
 
             <td> <?= $i; ?></td>
             <td> <?= $row["id"]; ?> </td>
-            <td> <?= $row["nama"]; ?> </td>
+            <td> <?= $row["namarequest"]; ?> </td>
             <td> <img src="gambarrequest/<?= $row["referensi"];  ?>" width="100" > </td>
             <td> <?= $row["budget"]; ?> </td>
             <td> <?= $row["waktu"]; ?> </td>
             <td> <?= $row["status"]; ?> </td>
             <td> 
             <p style="text-align:center">
-                <a href = "verif.php?id=<?= $row["id"]; ?>" onclick="return confirm ('yakin untuk diverifikasi?');" class="btn btn-primary"" role="button"> Terima </a>
-                <a href = "tolak.php?id=<?= $row["id"]; ?>" onclick="return confirm ('yakin untuk ditolak?');" class="btn btn-warning" role="button"> Tolak </a>
+                <a href = "verifrequest.php?id_request=<?= $row["id_request"]; ?>" onclick="return confirm ('yakin untuk diverifikasi?');" class="btn btn-primary" role="button"> Terima </a>
+                <a href = "tolakrequest.php?id_request=<?= $row["id_request"]; ?>" onclick="return confirm ('yakin untuk ditolak?');" class="btn btn-warning" role="button"> Tolak </a>
+            </p>
+            </td>
+            
+            
+        </tr>
+        <?php $i++;  ?>
+        <?php endforeach; ?>
+        
+        
+        
+    </table>
+    </div>
+
+     <div class="container">
+        <div class="jumbotron">
+            <h2 style="text-align:center; color: white">Verifikasi Pembayaran Produk Request</h2>
+
+        </div>
+    </div>
+    <hr>
+    <div class="table-responsive">
+    <table  class="table table-bordered table-striped table-hover">
+
+        <tr>
+                        <th style="text-align:center">No</th style="text-align:center">
+                        <th style="text-align:center">ID </th style="text-align:center">
+                        <th style="text-align:center">Nama Produk</th style="text-align:center">
+                        <th style="text-align:center">Gambar Furniture</th style="text-align:center">
+                        <th style="text-align:center">Budget</th style="text-align:center">
+                        <th style="text-align:center">Lama Pengerjaan</th style="text-align:center">
+                        <th style="text-align:center">Bukti Pembayaran</th style="text-align:center">
+                        <th style="text-align:center">Status</th style="text-align:center">
+                        <th style="text-align:center">Aksi</th style="text-align:center">
+        </tr>
+
+        <?php  $i = 1; ?>
+        <?php  foreach ($r_pembayaran as $row ):?>
+        <tr> 
+
+            <td> <?= $i; ?></td>
+            <td> <?= $row["id"]; ?> </td>
+            <td> <?= $row["namarequest"]; ?> </td>
+            <td> <img src="gambarrequest/<?= $row["referensi"];  ?>" width="100" > </td>
+            <td> <?= $row["budget"]; ?> </td>
+            <td> <?= $row["waktu"]; ?> </td>
+            <td> <img src="gambarpembayaranrequest/<?= $row["pembayaran"];  ?>" width="100" > </td>
+            <td> <?= $row["status"]; ?> </td>
+            <td> 
+            <p style="text-align:center">
+                <a href = "verifrequestpem.php?id_request=<?= $row["id_request"]; ?>" onclick="return confirm ('yakin untuk diverifikasi?');" class="btn btn-primary"" role="button"> Terima </a>
+                <a href = "tolakrequestpem.php?id_request=<?= $row["id_request"]; ?>" onclick="return confirm ('yakin untuk ditolak?');" class="btn btn-warning" role="button"> Tolak </a>
+            </p>
+            </td>
+            
+            
+        </tr>
+        <?php $i++;  ?>
+        <?php endforeach; ?>
+        
+        
+        
+    </table>
+    </div>
+
+
+<div class="container">
+        <div class="jumbotron">
+            <h2 style="text-align:center; color: white">Verifikasi Pengiriman dan Penerimaan Produk Request</h2>
+
+        </div>
+    </div>
+    <hr>
+    <div class="table-responsive">
+    <table  class="table table-bordered table-striped table-hover">
+
+        <tr>
+                        <th style="text-align:center">No</th style="text-align:center">
+                        <th style="text-align:center">ID </th style="text-align:center">
+                        <th style="text-align:center">Nama Produk</th style="text-align:center">
+                        <th style="text-align:center">Gambar Furniture</th style="text-align:center">
+                        <th style="text-align:center">Budget</th style="text-align:center">
+                        <th style="text-align:center">Lama Pengerjaan</th style="text-align:center">
+                        <th style="text-align:center">Bukti Pembayaran</th style="text-align:center">
+                        <th style="text-align:center">Status</th style="text-align:center">
+                        <th style="text-align:center">Aksi</th style="text-align:center">
+        </tr>
+
+        <?php  $i = 1; ?>
+        <?php  foreach ($ve_r_pembayaran as $row ):?>
+        <tr> 
+
+            <td> <?= $i; ?></td>
+            <td> <?= $row["id"]; ?> </td>
+            <td> <?= $row["namarequest"]; ?> </td>
+            <td> <img src="gambarrequest/<?= $row["referensi"];  ?>" width="100" > </td>
+            <td> <?= $row["budget"]; ?> </td>
+            <td> <?= $row["waktu"]; ?> </td>
+            <td> <img src="gambarpembayaranrequest/<?= $row["pembayaran"];  ?>" width="100" > </td>
+            <td> <?= $row["status"]; ?> </td>
+            <td> 
+            <p style="text-align:center">
+                <a href = "verifrequestkirim.php?id_request=<?= $row["id_request"]; ?>" onclick="return confirm ('yakin untuk diverifikasi?');" class="btn btn-primary"" role="button"> Kirim </a>
+                <br>
+                <br>
+                <a href = "requestselesai.php?id_request=<?= $row["id_request"]; ?>" onclick="return confirm ('yakin untuk menyelesaikan proses pemesanan?');" class="btn btn-warning" role="button"> Selesai </a>
             </p>
             </td>
             
@@ -123,8 +228,6 @@ p {
     </table>
     </div>
 </div>
-
-    
         <hr>
         <p style="text-align : center;">
             PPL Agroindustri

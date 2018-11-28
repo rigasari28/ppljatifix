@@ -66,7 +66,7 @@ p {
     <script src="js/bootstrap.min.js"></script>
     <ul class="nav nav-tabs"style="background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);">
 
-        <li role="presentation"><a href="admin.php"style="color: white;">Home</a></li>
+        <li role="presentation"><a href="admin.php"style="color: white;">Beranda</a></li>
         <li role="presentation"><a href="#"style="color: white;">Verifikasi</a></li>
         <li role="presentation"><a href="profil.php"style="color: white;">Profil</a></li>
         <li class="dropdown">
@@ -79,6 +79,7 @@ p {
                     </ul>
                 </li>
         <li role="presentation" class="active"><a href="#" style="background-color:#393e46; text-decoration:none; color: white">Informasi</a></li>
+        <li role="presentation"><a href="pemesananmeb.php"style="color: white;">Pemesanan</a></li>
 
           <div id="navbar" class="navbar-collapse collapse" >
 
@@ -142,7 +143,7 @@ p {
             <td> <?= $i; ?></td>
             <td> <?= $row["info"]; ?> </td>
             <td>
-                <a href = "editinfo.php?id_info=<?= $row["id_info"]; ?>" onclick="return confirm ('yakin untuk diedit?');" class="btn btn-primary" role="button"> Edit </a>
+                <a href = "editinfo.php?id_info=<?= $row["id_info"]; ?>" onclick="return confirm ('yakin untuk diubah?');" class="btn btn-primary" role="button"> Ubah </a>
             </td>
             
             

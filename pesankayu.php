@@ -2,14 +2,39 @@
 
 
 require 'function.php';
-
 $id = $_SESSION['id'];
+$idkayu = $_GET["idkayu"];
+$kayu = query(" SELECT * FROM kayu where idkayu = $idkayu");
 
-$kayu = query(" SELECT * FROM kayu where id=$id ");
+if (isset($_POST["pesankayu"])){
+    
 
+    //var_dump($_POST); 
+    //var_dump($_FILEs);
+    // die;
+    
+    if (pesankayu ( $_POST) > 0){
+        echo "
+        <script>
+        alert('pemesanan berhasil');
+        document.location.href = 'kayu.php'
+        </script>
+        ";
+
+    } else {
+        echo "
+        <script>
+        alert('pemesanan berhasil');
+        document.location.href = 'kayu.php'
+        </script>
+        ";
+    }
+}
 
  ?>
- <!DOCTYPE html>
+ 
+       
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -18,14 +43,13 @@ $kayu = query(" SELECT * FROM kayu where id=$id ");
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-    <title>Pemasok</title>
+    <title>Kayu Meubel</title>
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="Home.css">
 
-    <style>
-        body {
+<style>
+body {
     background-image: linear-gradient(to top, #e6b980 0%, #eacda3 100%);
-    background-size: cover
 
 }
 
@@ -34,19 +58,6 @@ p   {
     font-family: calibri;
     font-style: italic
 
-}
-
-.jumbotron {
-background-image: url(./gambar/kayu.jpg);
-background-size: cover;
-height: 450px
-
-}
-
-.thumbnail {
-    border-radius: 20px;
-   background-color: white;
-    box-shadow: 9px 9px 6px #c4a95f; 
 }
 
 
@@ -59,37 +70,43 @@ height: 450px
     <script src="js/bootstrap.min.js"></script>
 
     <ul class="nav nav-tabs" style="background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);">
-        <li role="presentation"><a href="pemasok.php" style="color: white;">Beranda</a></li>
-        <li role="presentation"><a href="profilpemasok.php" style="color: white;">Profil</a></li>
-        <li role="presentation"><a href="pemasokkayu.php" style=" text-decoration:none; color: rgb(46, 38, 38);font-family: segoe ui; font-size: 20px"><strong>
-                    <i>Kayu </i> </strong> </a></li>
-        <li role="presentation"><a href="pemasokinformasi.php" style="color: white;">Informasi</a></li>
-        <li role="presentation"><a href="pemasokverif.php" style="color: white;">Verifikasi</a></li>
-        <!-- iniadalahiconnotif -->
-        <!-- <li role="presentation"><a href="#" style="color: white; "> <span class="glyphicon glyphicon-comment"></span> -->
-        <div id="navbar" class="navbar-collapse collapse" >
+       	<li role="presentation"><a href="" style="color: white;">Beranda</a></li>
+        <li role="presentation"><a href="" style="color: white;">Verifikasi</a></li>
+        <li role="presentation"><a href="profil.php" style="color: white;">Profil</a></li>
+        <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                        aria-expanded="false" style="background-color:#393e46; text-decoration:none; color: white">Produk</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="produk.php">Furniture</a></li>
+                        <li><a href="kayu.php">Kayu</a></li>
+
+                    </ul>
+                </li>
+        <li role="presentation"><a href="informasi.php" style="color: white;">Informasi</a></li>
+        <li role="presentation"><a href="pemesananmeb.php" style="color: white;">Pemesanan</a></li>
+          <div id="navbar" class="navbar-collapse collapse" >
 
             <form class="navbar-form navbar-right">
 
                 <button type="submit" class="btn btn-warning" >
                     <a href="logout.php" style="color : white" onclick="return confirm('Yakin untuk keluar?');">
                     <span class="glyphicon glyphicon-off" aria-hidden="true" >
-                       Keluar </span></a></button>
+                        Keluar</span></a></button>
             </form>
         </div>
+        
     </ul>
     <div class="jumbotron">
         <div class="container">
             <h1 style="color: rgb(36, 36, 51); text-shadow:  3px 3px 6px #4b4740; text-align: center"> <strong> <i>
                         Ketahui Jenis Kayu <br>
                         Terbaik Untuk Kebutuhan Anda <br> </i> </strong></h1>
-                      <p style="text-align: center">  <button class="btn-lg btn-default" style="background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%); color: white; "> 
-                        <a href="tambahkayu.php" style="color:white"> <strong> Tambah Data Kayu </strong> </a> </button> </p>
+                      
         </div>
     </div>
-     <div class="container">
+    <div class="container">
         <div class="row">
-            <?php  foreach ($kayu as $row ):?>
+        	<?php  foreach ($kayu as $row ):?>
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <img src="gambarkayu/<?= $row["gambarkayu"];  ?>" width="300" height="200">
@@ -98,13 +115,18 @@ height: 450px
                         <p style="color:black">Diameter Kayu : <?= $row["diameter"]; ?> meter</p>
                         <p style="color:black">Panjang Kayu : <?= $row["panjang"]; ?> meter</p>
                         <p style="color:black">Harga Kayu : Rp.<?= $row["hargakayu"]; ?></p>
-                        <p style="color:black">Stok Kayu : <?= $row["stokkayu"]; ?></p>
-                        <p><a href="ubahkayu.php?idkayu=<?= $row["idkayu"]; ?>" class="btn btn-primary" role="button">Ubah</a>
+                         <p style="color:black">Stok Kayu : Rp.<?= $row["stokkayu"]; ?></p>
+                         <br>
+                         <p style="color:black">Masukkan Jumlah Pembelian kayu</p>
+                          <input class="form-control" type="number"  name="jumlah" id="jumlah" required>
+                          <br>
+                            <button class="btn btn-primary" type="submit" name="pesan kayu" id="pesankayu" role="submit">Pesan</button>
                     </div>
                 </div>
             </div>
             <?php endforeach; ?>
         </div>
+      
     </div>
 
     <div class="row" style="background-color: #393e46">

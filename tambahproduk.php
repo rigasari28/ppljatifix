@@ -53,7 +53,7 @@ if (isset($_POST["tambahproduk"])){
 <body>
     
   <ul class="nav nav-tabs" style="background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);">
-        <li role="presentation"><a href="" style="color: white;">Home</a></li>
+        <li role="presentation"><a href="" style="color: white;">Beranda</a></li>
         <li role="presentation"><a href="" style="color: white;">Verifikasi</a></li>
         <li role="presentation"><a href="profil.php" style="color: white;">Profil</a></li>
         <li class="dropdown">
@@ -66,6 +66,7 @@ if (isset($_POST["tambahproduk"])){
                     </ul>
                 </li>
         <li role="presentation"><a href="informasi.php" style="color: white;">Informasi</a></li>
+         <li role="presentation"><a href="pemesananmeb.php" style="color: white;">Pemesanan</a></li>
           <div id="navbar" class="navbar-collapse collapse" >
 
             <form class="navbar-form navbar-right">
@@ -81,7 +82,7 @@ if (isset($_POST["tambahproduk"])){
     <hr>
     <div class="container">
         <div class="jumbotron">
-            <h1>Tambah Data Produk</h1>
+            <h1>Tambah Data Furniture</h1>
            
             <p></p>
         </div>

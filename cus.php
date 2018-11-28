@@ -53,10 +53,10 @@ height: 500px
 
     <ul class="nav nav-tabs" style="background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);">
         <li role="presentation"><a href="#" style=" text-decoration:none; color: rgb(46, 38, 38);font-family: segoe ui; font-size: 20px"><strong>
-                    <i>Home </i> </strong> </a></li>
+                    <i>Beranda</i> </strong> </a></li>
         <li role="presentation"><a href="cus_profil.php" style="color: white;">Profil</a></li>
         <li role="presentation"><a href="cusfurniture.php" style="color: white;">Furniture</a></li>
-        <li role="presentation"><a href="#" style="color: white;">Pemesanan</a></li>
+        <li role="presentation"><a href="Cus_Pemesanan.php" style="color: white;">Pemesanan</a></li>
 
         <div id="navbar" class="navbar-collapse collapse" >
 

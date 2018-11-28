@@ -1,20 +1,20 @@
 <?php  
 require'function.php';
 
-$id = $_GET["id"];
+$id_request = $_GET["id_request"];
 
-if( verif ($id) > 0){
+if( verifrequest ($id_request) > 0){
     echo "
         <script>
         alert('data behasil diverifikasi');
-        document.location.href = 'profil.php'
+        document.location.href = 'verifadmin.php'
         </script>
         ";
 } else{
     echo "
         <script>
         alert('data gagal diverifikasi');
-        document.location.href = 'profil.php'
+        document.location.href = 'verifadmin.php'
         </script>
         ";
 }

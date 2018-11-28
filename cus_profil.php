@@ -7,7 +7,7 @@ $id = $_SESSION['id'];
 //query data mahasiswa berdasarkan id
 $sql = query("SELECT * FROM user WHERE id = $id")[0];
 
-?>;
+?>
 
 <?php  
 
@@ -22,11 +22,6 @@ if (isset($_POST["editprofilcus"])){
     $alamat = $_POST['alamat'];
     $no_rek = $_POST['no_rek'];
     $no_hp = $_POST['no_hp'];
-    
-
-    
-//      $sql = "INSERT INTO user (`iduser`, `nama`, `username`, `password`, `email`, `noktp`, `alamat`, `level`, `status`) 
-//    values ('', '$nama', '$username', '$password', '$email', '$ktp', '$alamat', 'user', 'nonaktif')";
     $sql = "UPDATE `user` SET `nama`='$nama',`namauser`='$namauser',`password`='$password',`email`='$email',
     `alamat`='$alamat',`no_rek`='$no_rek',`no_hp`='$no_hp' WHERE id=$id";
       $query = mysqli_query($conn,$sql);
@@ -37,7 +32,6 @@ if (isset($_POST["editprofilcus"])){
         <script type="text/javascript">
             alert("berhasil diubah");
             window.location.href="cus_profil.php";
-        
         </script>
         
         <?php  } else {
@@ -106,11 +100,11 @@ height: 500px
     <script src="js/bootstrap.min.js"></script>
 
     <ul class="nav nav-tabs" style="background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);">
-        <li role="presentation"><a href="cus.php" style="color: white;">Home</a></li>
+        <li role="presentation"><a href="cus.php" style="color: white;">Beranda</a></li>
         <li role="presentation"><a href="#" style=" text-decoration:none; color: rgb(46, 38, 38);font-family: segoe ui; font-size: 20px"><strong>
                     <i>Profil </i> </strong> </a></li>
         <li role="presentation"><a href="cusfurniture.php" style="color: white;">Furniture</a></li>
-        <li role="presentation"><a href="#" style="color: white;">Pemesanan</a></li>
+        <li role="presentation"><a href="Cus_Pemesanan.php" style="color: white;">Pemesanan</a></li>
 
         <div id="navbar" class="navbar-collapse collapse" >
 
@@ -127,15 +121,11 @@ height: 500px
     <div class="container">
         <div class="row register-form" id="form">
             <div class="col-md-8 col-md-offset-2">
-                <form method="post" enctype="multipart/form-data"  class="form-horizontal custom-form" id="form" style="background:rgba(0,9,0,0.3)">
+                <form method="post" class="form-horizontal custom-form" id="form" style="background:rgba(0,9,0,0.3)">
 
                     <img src="./gambar/bulet.png" width="100" height="100">
 
                     <h1 style="color:white"> Data Diri</h1>
-                    <input type="hidden" name="id" value="<?= $sql["idkayu"]; ?>">
-                    <input type="hidden" name="namaperusahan" value="<?= $sql["namaperusahan"]; ?>">
-                    <input type="hidden" name="noper" value="<?= $sql["noper"]; ?>">
-                    <input type="hidden" name="status" value="<?= $sql["status"]; ?>">
                     <div class="form-group">
                         <div class="col-sm-4 label-column">
                             <label class="control-label" for="nama" style="color:white">Nama</label>
@@ -205,8 +195,7 @@ height: 500px
                                         Batal</span></a>
                     </button>
                               
-                    <button class="btn btn-default btn-sm submit-button" type="submit" name="editprofilcus
-                    " style="border-radius:10px">Simpan</button>
+                    <button class="btn btn-default btn-sm submit-button" type="submit" name="editprofilcus" style="border-radius:10px">Simpan</button>
                 </form>
             </div>
         </div>

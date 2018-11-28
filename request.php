@@ -122,40 +122,7 @@ height: 400px
                             <label class="control-label" for="name-input-field" style="color:white">Nama</label>
                         </div>
                         <div class="col-sm-6 input-column">
-                            <input class="form-control" type="text" name="nama" id="nama" required="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-4 label-column">
-                            <label class="control-label" for="email-input-field" style="color:white">Alamat </label>
-                        </div>
-                        <div class="col-sm-6 input-column">
-                            <input class="form-control" type="text" name="alamat" id="alamat" required="">
-                        </div>
-                    </div>
-                     <div class="form-group">
-                        <div class="col-sm-4 label-column">
-                            <label class="control-label" for="text-input-field" style="color:white">No Telephone </label>
-                        </div>
-                        <div class="col-sm-6 input-column">
-                            <input class="form-control" type="number" name="telp" id="telp" required="">
-                        </div>
-                    </div>
-                     <div class="form-group">
-                        <div class="col-sm-4 label-column">
-                            <label class="control-label" for="number-input-field" style="color:white">No Rekening </label>
-                        </div>
-                        <div class="col-sm-6 input-column">
-                            <input class="form-control" type="text" name="norek" id="norek" required="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-4 label-column">
-                            <label class="control-label" for="email-input-field" style="color:white">Email
-                            </label>
-                        </div>
-                        <div class="col-sm-6 input-column">
-                            <input class="form-control" type="email" name="email" id="email" required="">
+                            <input class="form-control" type="text" name="namarequest" id="namarequest" required="">
                         </div>
                     </div>
 

@@ -89,13 +89,14 @@ height: 450px
     <script src="js/bootstrap.min.js"></script>
 
     <ul class="nav nav-tabs" style="background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);">
-        <li role="presentation"><a href="pemasok.php" style="color: white;">Home</a></li>
+        <li role="presentation"><a href="pemasok.php" style="color: white;">Beranda</a></li>
         <li role="presentation"><a href="profilpemasok.php" style="color: white;">Profil</a></li>
         <li role="presentation"><a href="pemasokkayu.php" style=" text-decoration:none; color: rgb(46, 38, 38);font-family: segoe ui; font-size: 20px"><strong>
                     <i>Kayu </i> </strong> </a></li>
         <li role="presentation"><a href="pemasokinformasi.php" style="color: white;">Informasi</a></li>
-        <li role="presentation"><a href="#" style="color: white;"> <span class="glyphicon glyphicon-comment"></span>
-            </a></li>
+        <li role="presentation"><a href="pemasokverif.php" style="color: white;">Verifikasi</a></li>
+        <!-- iniadalahiconnotif -->
+        <!-- <li role="presentation"><a href="#" style="color: white; "> <span class="glyphicon glyphicon-comment"></span> -->
         <div id="navbar" class="navbar-collapse collapse" >
 
             <form class="navbar-form navbar-right">

@@ -1,20 +1,20 @@
 <?php  
 require'function.php';
 
-$id = $_GET["id"];
+$id_request = $_GET["id_request"];
 
-if( tolak ($id) > 0){
+if( tolakrequestpem ($id_request) > 0){
     echo "
         <script>
         alert('data behasil ditolak');
-        document.location.href = 'profil.php'
+        document.location.href = 'verifadmin.php'
         </script>
         ";
 } else{
     echo "
         <script>
         alert('data gagal ditolak');
-        document.location.href = 'profil.php'
+        document.location.href = 'verifadmin.php'
         </script>
         ";
 }

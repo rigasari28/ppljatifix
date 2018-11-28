@@ -44,8 +44,8 @@ p   {
     <script src="js/bootstrap.min.js"></script>
 
     <ul class="nav nav-tabs" style="background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);">
-        <li role="presentation" class="active"><a href="#" style="background-color:#393e46; text-decoration:none; color: white">Home</a></li>
-        <li role="presentation"><a href="" style="color: white;">Verifikasi</a></li>
+        <li role="presentation" class="active"><a href="#" style="background-color:#393e46; text-decoration:none; color: white">Beranda</a></li>
+        <li role="presentation"><a href="verifadmin.php" style="color: white;">Verifikasi</a></li>
         <li role="presentation"><a href="profil.php" style="color: white;">Profil</a></li>
         <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -57,6 +57,7 @@ p   {
                     </ul>
                 </li>
         <li role="presentation"><a href="informasi.php" style="color: white;">Informasi</a></li>
+        <li role="presentation"><a href="pemesananadmin.php" style="color: white;">Pemesanan</a></li>
 
          <div id="navbar" class="navbar-collapse collapse" >
 
