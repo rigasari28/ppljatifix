@@ -5,7 +5,10 @@ require 'function.php';
 //ambil data url
 $id = $_SESSION['id'];
 
-$r_pembayaran = query(" SELECT * FROM request where id = '$id'");
+$requestpembayaran= query(" SELECT * FROM request where  status ='request diterima, menunggu pembayaran' or  status ='verifikasi pembayaran ditolak, mohon upload bukti pembayaran dengan jelas dan benar' and id = '$id' ");
+$requestselesai = query(" SELECT * FROM request where id = '$id'");
+$transaksipembayaran = query(" SELECT * FROM transaksi where status = 'pemesanan diterima, menunggu pembayaran' or status = 'verifikasi pembayaran ditolak, mohon upload bukti pembayaran dengan jelas dan benar' or  id = '$id'");
+$transaksiselesai = query(" SELECT * FROM transaksi where id = '$id'");
 
 ?>
 <!DOCTYPE html>
@@ -78,21 +81,17 @@ height: 300px
             </form>
         </div>
     </ul>
-
-    
-     
-
+    <hr>
      <div class="container">
-        <form action="" method="post" enctype="multipart/form-data">
+        <div class="row">
+        </div>
+    <div class="container">
         <div class="jumbotron">
-            <h2 style="text-align:center; color: white">Verifikasi Pembayaran Produk Request</h2>
+            <h2 style="text-align:center; color: white">Pembayaran Produk Request</h2>
 
         </div>
     </div>
     <hr>
-     <div class="row">
-        </div>
-    <form action="" method="post" enctype="multipart/form-data">
     <div class="table-responsive">
     <table  class="table table-bordered table-striped table-hover">
 
@@ -108,7 +107,7 @@ height: 300px
         </tr>
 
         <?php  $i = 1; ?>
-        <?php  foreach ($r_pembayaran as $row ):?>
+        <?php  foreach ($requestpembayaran as $row ):?>
         <tr> 
 
             <td> <?= $i; ?></td>
@@ -132,6 +131,145 @@ height: 300px
         
         
     </table>
+    </div>
+ <div class="container">
+        <div class="jumbotron">
+            <h2 style="text-align:center; color: white">Riwayat Pemesanan Produk Request</h2>
+
+        </div>
+    </div>
+    <hr>
+    <div class="table-responsive">
+    <table  class="table table-bordered table-striped table-hover">
+
+        <tr>
+                        <th style="text-align:center">No</th style="text-align:center">
+                        <th style="text-align:center">Nama Produk</th style="text-align:center">
+                        <th style="text-align:center">Gambar Furniture</th style="text-align:center">
+                        <th style="text-align:center">Budget</th style="text-align:center">
+                        <th style="text-align:center">Lama Pengerjaan</th style="text-align:center">
+                        <th style="text-align:center">Bukti Pembayaran</th style="text-align:center">
+                        <th style="text-align:center">Status</th style="text-align:center">
+                        <th style="text-align:center">Aksi</th style="text-align:center">
+        </tr>
+
+        <?php  $i = 1; ?>
+        <?php  foreach ($requestselesai as $row ):?>
+        <tr> 
+
+            <td> <?= $i; ?></td>
+            <td> <?= $row["namarequest"]; ?> </td>
+            <td> <img src="gambarrequest/<?= $row["referensi"];  ?>" width="100" > </td>
+            <td> <?= $row["budget"]; ?> </td>
+            <td> <?= $row["waktu"]; ?> </td>
+            <td> <img src="gambarpembayaranrequest/<?= $row["pembayaran"];  ?>" width="100" > </td>
+            <td> <?= $row["status"]; ?> </td>
+            <td> 
+            <p style="text-align:center">
+                 <a href = "requestselesai.php?id_request=<?= $row["id_request"]; ?>"   class="btn btn-primary" role="button"> Selesai</a>
+            </p>
+            </td>
+            
+            
+        </tr>
+        <?php $i++;  ?>
+        <?php endforeach; ?>
+        
+        
+        
+    </table>
+    </div>
+<div class="container">
+        <div class="jumbotron">
+            <h2 style="text-align:center; color: white">Pembayaran Furniture</h2>
+
+        </div>
+    </div>
+    <hr>
+    <div class="table-responsive">
+    <table  class="table table-bordered table-striped table-hover">
+
+        <tr>
+                        <th style="text-align:center">No</th style="text-align:center">
+                        <th style="text-align:center">ID</th style="text-align:center">
+                        <th style="text-align:center">ID produk</th style="text-align:center">
+                        <th style="text-align:center">Jumlah Pembelian</th style="text-align:center">
+                        <th style="text-align:center">Pembayaran</th style="text-align:center">
+                        <th style="text-align:center">Status</th style="text-align:center">
+                        <th style="text-align:center">Upload Pembayaran</th style="text-align:center">
+        </tr>
+
+        <?php  $i = 1; ?>
+        <?php  foreach ($transaksipembayaran as $row ):?>
+        <tr> 
+
+            <td> <?= $i; ?></td>
+            <td> <?= $row["id"]; ?> </td>
+            <td> <?= $row["idproduk"]; ?> </td>
+            <td> <?= $row["jumlahpembelian"]; ?> </td>
+            <td> <img src="gambarpembayaranfur/<?= $row["pembayaranfurniture"];  ?>" width="100" > </td>
+            <td> <?= $row["statustransaksi"]; ?> </td>
+            <td> 
+            <p style="text-align:center">
+                 <a href = "uploadfur.php?idtransaksi=<?= $row["idtransaksi"]; ?>"   class="btn btn-primary" role="button"> Upload </a>
+            </p>
+            </td>
+            
+            
+        </tr>
+        <?php $i++;  ?>
+        <?php endforeach; ?>
+        
+        
+        
+    </table>
+    </div>
+    <div class="container">
+        <div class="jumbotron">
+            <h2 style="text-align:center; color: white">Riwayat Pemesanan Furniture</h2>
+
+        </div>
+    </div>
+    <hr>
+    <div class="table-responsive">
+    <table  class="table table-bordered table-striped table-hover">
+
+        <tr>
+                        <th style="text-align:center">No</th style="text-align:center">
+                        <th style="text-align:center">ID</th style="text-align:center">
+                        <th style="text-align:center">ID produk</th style="text-align:center">
+                        <th style="text-align:center">Jumlah Pembelian</th style="text-align:center">
+                        <th style="text-align:center">Pembayaran</th style="text-align:center">
+                        <th style="text-align:center">Status</th style="text-align:center">
+                        <th style="text-align:center">Aksi</th style="text-align:center">
+        </tr>
+
+        <?php  $i = 1; ?>
+        <?php  foreach ($transaksiselesai as $row ):?>
+        <tr> 
+
+            <td> <?= $i; ?></td>
+            <td> <?= $row["id"]; ?> </td>
+            <td> <?= $row["idproduk"]; ?> </td>
+            <td> <?= $row["jumlahpembelian"]; ?> </td>
+            <td> <img src="gambarpembayaranfur/<?= $row["pembayaranfurniture"];  ?>" width="100" > </td>
+            <td> <?= $row["statustransaksi"]; ?> </td>
+            <td> 
+            <p style="text-align:center">
+                 <a href = "transaksiselesai.php?idtransaksi=<?= $row["idtransaksi"]; ?>"   class="btn btn-primary" role="button"> Selesai </a>
+            </p>
+            </td>
+            
+            
+        </tr>
+        <?php $i++;  ?>
+        <?php endforeach; ?>
+        
+        
+        
+    </table>
+    </div>
+
     </div>
     <form action="" method="post" enctype="multipart/form-data">
 

@@ -57,10 +57,10 @@ height: 450px
         <li role="presentation"><a href="profilpemasok.php" style="color: white;">Profil</a></li>
         <li role="presentation"><a href="pemasokkayu.php" style="color: white;">Kayu</a></li>
         <li role="presentation"><a href="pemasokinformasi.php" style="color: white;">Informasi</a></li>
-        <li role="presentation"><a href="pemasokverif.php" style="color: white;">Verifikasi</a></li>
+        <li role="presentation"><a href="pemasokverifikasi.php" style="color: white;">Verifikasi</a></li>
         <!-- iniadalahiconnotif -->
         <!-- <li role="presentation"><a href="#" style="color: white; "> <span class="glyphicon glyphicon-comment"></span> -->
-            </a></li>
+          
 
           <div id="navbar" class="navbar-collapse collapse" >
 

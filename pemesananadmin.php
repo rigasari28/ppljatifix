@@ -7,7 +7,8 @@ $id = $_SESSION['id'];
 
 
 $request = query(" SELECT * FROM request where status = 'selesai' ");
-
+$pesankayu = query(" SELECT * FROM transaksi_kayu  ");
+$furniture = query(" SELECT * FROM transaksi  ");
 
 
  ?>
@@ -77,7 +78,7 @@ p {
 
      <div class="container">
         <div class="jumbotron">
-            <h2 style="text-align:center; color: white">Riwayat Pemesana Produk Request</h2>
+            <h2 style="text-align:center; color: white">Riwayat Penjualan Produk Request</h2>
 
         </div>
     </div>
@@ -119,6 +120,87 @@ p {
     </table>
     </div>
  
+<div class="container">
+        <div class="jumbotron">
+            <h2 style="text-align:center; color: white">Riwayat Pemesanan Kayu</h2>
+
+        </div>
+    </div>
+    <hr>
+     <div class="table-responsive">
+    <table  class="table table-bordered table-striped table-hover">
+
+        <tr>
+                        <th style="text-align:center">No</th style="text-align:center">
+                        <th style="text-align:center">ID </th style="text-align:center">
+                        <th style="text-align:center">Jumlah Pembelian</th style="text-align:center">
+                        <th style="text-align:center">Status</th style="text-align:center">
+        </tr>
+
+        <?php  $i = 1; ?>
+        <?php  foreach ($pesankayu as $row ):?>
+        <tr> 
+
+            <td> <?= $i; ?></td>
+            <td> <?= $row["idkayu"]; ?> </td>
+            <td> <?= $row["jumlah"]; ?> </td>
+            <td> <?= $row["statuskayu"]; ?> </td>
+           
+          
+            
+            
+        </tr>
+        <?php $i++;  ?>
+        <?php endforeach; ?>
+        
+        
+        
+    </table>
+    </div>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h2 style="text-align:center; color: white">Riwayat Pemesanan Furniture</h2>
+
+        </div>
+    </div>
+    <hr>
+     <div class="table-responsive">
+    <table  class="table table-bordered table-striped table-hover">
+
+        <tr>
+                        <th style="text-align:center">No</th style="text-align:center">
+                        <th style="text-align:center">ID</th style="text-align:center">
+                        <th style="text-align:center">ID produk</th style="text-align:center">
+                        <th style="text-align:center">Jumlah Pembelian</th style="text-align:center">
+                        <th style="text-align:center">Pembayaran</th style="text-align:center">
+                        <th style="text-align:center">Status</th style="text-align:center">
+        </tr>
+
+        <?php  $i = 1; ?>
+        <?php  foreach ($furniture as $row ):?>
+        <tr> 
+
+          <td> <?= $i; ?></td>
+            <td> <?= $row["id"]; ?> </td>
+            <td> <?= $row["idproduk"]; ?> </td>
+            <td> <?= $row["jumlahpembelian"]; ?> </td>
+            <td> <img src="gambarpembayaranfur/<?= $row["pembayaranfurniture"];  ?>" width="100" > </td>
+            <td> <?= $row["statustransaksi"]; ?> </td>
+           
+          
+            
+            
+        </tr>
+        <?php $i++;  ?>
+        <?php endforeach; ?>
+        
+        
+        
+    </table>
+    </div>
+
+
 </div>
         <hr>
         <p style="text-align : center;">

@@ -3,27 +3,27 @@
 
 require 'function.php';
 $id = $_SESSION['id'];
-$idkayu = $_GET['idkayu'];
-if (isset($_POST["pesankayu"])){
+$idproduk = $_GET['idproduk'];
+if (isset($_POST["pesanfurniture"])){
     
 
     //var_dump($_POST); 
     //var_dump($_FILEs);
     // die;
     
-    if (kayupesan ( $_POST) > 0){
+    if (fur_pesan ( $_POST) > 0){
         echo "
         <script>
-        alert('data behasil tambahkan');
-        document.location.href = 'kayu.php'
+        alert('pemesanan berhasil');
+        document.location.href = 'cusfurniture.php'
         </script>
         ";
 
     } else {
         echo "
         <script>
-        alert('data gagal ditambahkan');
-        document.location.href = 'kayu.php'
+        alert('pemesanan gagal');
+        document.location.href = 'cusfurniture.php'
         </script>
         ";
     }
@@ -54,28 +54,20 @@ if (isset($_POST["pesankayu"])){
 <body>
     
   <ul class="nav nav-tabs" style="background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);">
-        <li role="presentation"><a href="" style="color: white;">Beranda</a></li>
-        <li role="presentation"><a href="" style="color: white;">Verifikasi</a></li>
-        <li role="presentation"><a href="profil.php" style="color: white;">Profil</a></li>
-        <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                        aria-expanded="false" style="background-color:#393e46; text-decoration:none; color: white">Produk</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="produk.php">Furniture</a></li>
-                        <li><a href="kayu.php">Kayu</a></li>
+         <li role="presentation"><a href="cus.php" style="color: white;">Beranda</a></li>
+        <li role="presentation"><a href="cus_profil.php" style="color:white">Profil  </a></li>
+        <li role="presentation"><a href="#" style=" text-decoration:none; color: rgb(46, 38, 38);font-family: segoe ui; font-size: 20px"> <strong> <i> Furniture </i> </strong> </a>
+        </li>
+        <li role="presentation"><a href="Cus_Pemesanan.php" style="color: white;">Pemesanan</a></li>
 
-                    </ul>
-                </li>
-        <li role="presentation"><a href="informasi.php" style="color: white;">Informasi</a></li>
-         <li role="presentation"><a href="pemesananmeb.php" style="color: white;">Pemesanan</a></li>
-          <div id="navbar" class="navbar-collapse collapse" >
+        <div id="navbar" class="navbar-collapse collapse" >
 
             <form class="navbar-form navbar-right">
 
                 <button type="submit" class="btn btn-warning" >
                     <a href="logout.php" style="color : white" onclick="return confirm('Yakin untuk keluar?');">
                     <span class="glyphicon glyphicon-off" aria-hidden="true" >
-                        Keluar</span></a></button>
+                       Keluar </span></a></button>
             </form>
         </div>
         
@@ -95,19 +87,19 @@ if (isset($_POST["pesankayu"])){
                   
                     <div class="form-group">
                         <div class="col-sm-4 label-column">
-                            <label class="control-label" for="jumlah" style="color:white">Jumlah Pembelian</label>
+                            <label class="control-label" for="jumlahpembelian" style="color:white">Jumlah Pembelian</label>
                         </div>
                         <div class="col-sm-6 input-column">
-                            <input class="form-control" type="number"  name="jumlah" id="jumlah" required>
+                            <input class="form-control" type="number"  name="jumlahpembelian" id="jumlahpembelian" required>
                         </div>
                     </div>
                  
 
                        
                             <div class="form-group">
-                                    <button class="btn btn-primary" type="submit" name="pesankayu">Pesan</button>
+                                    <button class="btn btn-primary" type="submit" name="pesanfurniture">Pesan</button>
                                     <button class="btn btn-danger" type="button">
-                                        <a href="kayu.php" style="color : white">
+                                        <a href="cusfurniture.php" style="color : white">
                                         <span  aria-hidden="true" >
                                         Batal</span></a>
                                     </button>

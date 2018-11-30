@@ -104,7 +104,7 @@ height: 500px
                         <h3 style="text-align:center"> <strong> <i> <?= $row["namaproduk"]; ?> </i> </strong></h3>
                        	<h4 style="text-align:center"> <strong> <i> Rp. <?= $row["hargaproduk"]; ?> </i> </strong></h4>
                        	<h4 style="text-align:center"> <strong> <i> Stok = <?= $row["stok"]; ?> </i> </strong></h4>
-                        <p style="text-align:center"><a href="cus_furniture2.html" class="btn btn-primary" role="button" >Pesan</a> </p>
+                        <p style="text-align:center"><a href="cuspesan.php?idproduk=<?= $row["idproduk"]; ?>"" class="btn btn-primary" role="button" >Pesan</a> </p>
                       </div>
                     </div>
                   </div>

@@ -72,8 +72,8 @@ p {
                             style="color:white"> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="login.php">Masuk</a></li>
-                        <li><a href="daftarpk.php">Daftar Sebgai Pemasok</a></li>
-                        <li><a href="daftarpm.php">Daftar Sebgai Customer</a></li>
+                        <li><a href="daftarpk.php">Daftar Sebagai Pemasok</a></li>
+                        <li><a href="daftarpm.php">Daftar Sebagai Customer</a></li>
 
                     </ul>
                 </li>

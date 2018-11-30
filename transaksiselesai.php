@@ -1,9 +1,9 @@
 <?php  
 require'function.php';
 $id = $_SESSION['id'];
-$id_request = $_GET["id_request"];
+$idtransaksi = $_GET["idtransaksi"];
 
-if( verifrequestselesai ($id_request) > 0){
+if( veriftransaksiselesai ($idtransaksi) > 0){
     echo "
         <script>
         alert('pemesanan telah selesai');

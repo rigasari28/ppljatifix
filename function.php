@@ -82,7 +82,7 @@ function tambahrequest ($data){
 	$referensi = htmlspecialchars($data["referensi"]);
 	$budget = htmlspecialchars($data["budget"]);
 	$waktu = htmlspecialchars($data["waktu"]);
-	$waktu = htmlspecialchars($data["waktu"]);
+	
 
 	$referensi = uploadreferensi();
 	if(! $referensi){
@@ -344,15 +344,30 @@ function tambahky($data){
 
 	return mysqli_affected_rows($conn);
 }
-function pesankayu($data){
+function kayupesan($data){
 	global $conn;
-	$idkayu = htmlspecialchars($data["idkayu"]);
+	$idkayu = $_GET["idkayu"];
 	$jumlah = htmlspecialchars($data["jumlah"]);
 
 	$query ="INSERT INTO transaksi_kayu
 			VALUES 
 			('','$idkayu','$jumlah','menunggu konfirmasi pemasok')
 	";
+	mysqli_query($conn, $query);
+
+	return mysqli_affected_rows($conn);
+}
+function fur_pesan($data){
+	global $conn;
+	$id = $_SESSION['id'];
+	$idproduk = $_GET["idproduk"];
+	$jumlahpembelian = htmlspecialchars($data["jumlahpembelian"]);
+
+	$query ="INSERT INTO transaksi
+			VALUES 
+			('','$id','$idproduk','gambar.png','$jumlahpembelian','menunggu konfirmasi')
+	";
+	
 	mysqli_query($conn, $query);
 
 	return mysqli_affected_rows($conn);
@@ -462,7 +477,40 @@ function verifrequestselesai ($id_request){
 	mysqli_query($conn,"UPDATE  request SET status = 'selesai' WHERE id_request = $id_request");
 	return mysqli_affected_rows($conn);
 }
+function kirimverif ($id_tk){
+	global $conn;
+	mysqli_query($conn,"UPDATE  transaksi_kayu SET statuskayu = 'proses pengiriman berlangsung' WHERE id_tk = $id_tk");
+	return mysqli_affected_rows($conn);
+}
+function bayarverif ($id_tk){
+	global $conn;
+	mysqli_query($conn,"UPDATE  transaksi_kayu SET statuskayu = 'proses pembayaran telah selesai' WHERE id_tk = $id_tk");
+	return mysqli_affected_rows($conn);
+}
 
+function veriftransaksi ($idtransaksi){
+	global $conn;
+	mysqli_query($conn,"UPDATE  transaksi SET statustransaksi = 'pemesanan diterima, menunggu pembayaran' WHERE idtransaksi = $idtransaksi");
+	return mysqli_affected_rows($conn);
+}
+
+function veriftransaksibayar ($idtransaksi){
+	global $conn;
+	mysqli_query($conn,"UPDATE  transaksi SET statustransaksi = 'pembayaran berhasil' WHERE idtransaksi = $idtransaksi");
+	return mysqli_affected_rows($conn);
+}
+
+function veriftransaksikirim ($idtransaksi){
+	global $conn;
+	mysqli_query($conn,"UPDATE  transaksi SET statustransaksi = 'dalam proses pengiriman' WHERE idtransaksi = $idtransaksi");
+	return mysqli_affected_rows($conn);
+}
+
+function veriftransaksiselesai ($idtransaksi){
+	global $conn;
+	mysqli_query($conn,"UPDATE  transaksi SET statustransaksi = 'selesai' WHERE idtransaksi = $idtransaksi");
+	return mysqli_affected_rows($conn);
+}
 
 function tolak($id){
 	global $conn;
@@ -479,6 +527,19 @@ function tolakrequestpem($id_request){
 	mysqli_query($conn,"UPDATE  request SET status = 'verifikasi pembayaran ditolak, mohon upload bukti pembayaran dengan jelas dan benar' WHERE id_request = $id_request");
 	return mysqli_affected_rows($conn);
 }
+
+function tolaktransaksi ($idtransaksi){
+	global $conn;
+	mysqli_query($conn,"UPDATE  transaksi SET statustransaksi = 'pemesanan ditolak' WHERE idtransaksi = $idtransaksi");
+	return mysqli_affected_rows($conn);
+}
+
+function tolaktransaksibayar ($idtransaksi){
+	global $conn;
+	mysqli_query($conn,"UPDATE  transaksi SET statustransaksi = 'pembayaran ditolak, mohon upload bukti pembayaran dengan jelas dan benar' WHERE idtransaksi = $idtransaksi");
+	return mysqli_affected_rows($conn);
+}
+
 function tambahinfo ($data){
 	global $conn;
 	
@@ -540,6 +601,37 @@ function pembayaranr_pm ($data){
 
 }
 
+function pembayaran_fur ($data){
+
+	global $conn;
+	$id = $_SESSION['id'];
+	$idtransaksi = $data["idtransaksi"];
+	$gambarLama = htmlspecialchars($data["gambarLama"]);
+	
+	// $pembayaran = uploadpembayaranre();
+	// if(! $pembayaran){
+	// 	return true;
+	// }
+
+	if($_FILES['pembayaranfurniture']['error'] === 4){
+		$pembayaranfurniture=$gambarLama;
+	}else{
+	$pembayaranfurniture = uploadpembayarantransaksi();
+	}
+	
+
+	$query ="UPDATE transaksi SET 
+			 pembayaranfurniture = '$pembayaranfurniture',
+			 statustransaksi = 'bukti pembayaran telah diupload, menunggu konfirmasi meubel'
+			 WHERE idtransaksi = $idtransaksi
+			 ";
+
+	mysqli_query($conn, $query);
+
+	return mysqli_affected_rows($conn);
+
+}
+
 function uploadpembayaranre(){
 
 	$namaFile = $_FILES['pembayaran']['name'];
@@ -584,6 +676,53 @@ function uploadpembayaranre(){
 
 
 	move_uploaded_file($tmpName, 'gambarpembayaranrequest/'. $namaFileBaru);
+	return $namaFileBaru;
+}
+
+function uploadpembayarantransaksi(){
+
+	$namaFile = $_FILES['pembayaranfurniture']['name'];
+	$ukuranFile = $_FILES['pembayaranfurniture']['size'];
+	$error =$_FILES['pembayaranfurniture']['error'];
+	$tmpName = $_FILES['pembayaranfurniture']['tmp_name'];
+
+	//cek upload ada apa nggak
+	if ($error === 4){
+		echo "<script>
+		alert('pilih gambar terlebih dahulu');
+		</script>";
+		return false;
+	}
+	//hanya gambar
+	$ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+	$ekstensiGambar = explode('.', $namaFile);
+	$ekstensiGambar =strtolower(end($ekstensiGambar));
+	if(!in_array($ekstensiGambar, $ekstensiGambarValid)){
+
+		echo "<script>
+		alert('yang anda upload bukan gambar!');
+		</script>";
+		return false;
+	}
+
+	//cek jika ukurannya terlalu besar
+	if ($ukuranFile > 1000000){
+
+		echo "<script>
+		alert('ukuran gambar terlalu besar');
+		</script>";
+		return false;
+	}
+
+	//jika lolos gambar berhasil di upload
+	// generate nama baru
+
+	$namaFileBaru = uniqid();
+	$namaFileBaru .= '.';
+	$namaFileBaru .= $ekstensiGambar;
+
+
+	move_uploaded_file($tmpName, 'gambarpembayaranfur/'. $namaFileBaru);
 	return $namaFileBaru;
 }
 

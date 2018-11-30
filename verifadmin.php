@@ -7,9 +7,14 @@ $id = $_SESSION['id'];
 
 
 $request = query(" SELECT * FROM request where status = 'menunggu konfirmasi' ");
-$r_pembayaran = query(" SELECT * FROM request where status = 'request diterima, menunggu pembayaran' or status='menunggu konfirmasi pembayaran dari meubel' or status ='verifikasi pembayaran ditolak, mohon upload bukti pembayaran dengan jelas dan benar'");
-$ve_r_pembayaran = query(" SELECT * FROM request where status = 'proses pembayaran berhasil, menunggu proses pengiriman' or status ='proses pengiriman berlangsung'");
 
+$r_pembayaran = query(" SELECT * FROM request where status = 'request diterima, menunggu pembayaran' or status='menunggu konfirmasi pembayaran dari meubel' or status ='verifikasi pembayaran ditolak, mohon upload bukti pembayaran dengan jelas dan benar'");
+
+$ve_r_pembayaran = query(" SELECT * FROM request where status = 'proses pembayaran berhasil, menunggu proses pengiriman' ");
+
+$transaksi = query(" SELECT * FROM transaksi where statustransaksi='menunggu konfirmasi'");
+$transaksibayar = query(" SELECT * FROM transaksi where statustransaksi='pemesanan diterima, menunggu pembayaran' or statustransaksi='pembayaran ditolak, mohon upload bukti pembayaran dengan jelas dan benar' or statustransaksi='bukti pembayaran telah diupload, menunggu konfirmasi meubel' ");
+$transaksikirim = query(" SELECT * FROM transaksi where statustransaksi='pembayaran berhasil' ");
 
  ?>
 <!DOCTYPE html>
@@ -211,10 +216,8 @@ p {
             <td> <?= $row["status"]; ?> </td>
             <td> 
             <p style="text-align:center">
-                <a href = "verifrequestkirim.php?id_request=<?= $row["id_request"]; ?>" onclick="return confirm ('yakin untuk diverifikasi?');" class="btn btn-primary"" role="button"> Kirim </a>
-                <br>
-                <br>
-                <a href = "requestselesai.php?id_request=<?= $row["id_request"]; ?>" onclick="return confirm ('yakin untuk menyelesaikan proses pemesanan?');" class="btn btn-warning" role="button"> Selesai </a>
+               <a href = "verifrequestkirim.php?id_request=<?= $row["id_request"]; ?>" onclick="return confirm ('yakin untuk diverifikasi?');" class="btn btn-primary"" role="button"> Kirim </a>
+                
             </p>
             </td>
             
@@ -227,6 +230,151 @@ p {
         
     </table>
     </div>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h2 style="text-align:center; color: white">Verifikasi Awal Pemesanan Furniture</h2>
+
+        </div>
+    </div>
+    <hr>
+    <div class="table-responsive">
+    <table  class="table table-bordered table-striped table-hover">
+
+        <tr>
+                       <th style="text-align:center">No</th style="text-align:center">
+                        <th style="text-align:center">ID</th style="text-align:center">
+                        <th style="text-align:center">ID produk</th style="text-align:center">
+                        <th style="text-align:center">Jumlah Pembelian</th style="text-align:center">
+                        <th style="text-align:center">Pembayaran</th style="text-align:center">
+                        <th style="text-align:center">Status</th style="text-align:center">
+                        <th style="text-align:center">Aksi</th style="text-align:center">
+
+        <?php  $i = 1; ?>
+        <?php  foreach ($transaksi as $row ):?>
+        <tr> 
+
+            <td> <?= $i; ?></td>
+            <td> <?= $row["id"]; ?> </td>
+            <td> <?= $row["idproduk"]; ?> </td>
+            <td> <?= $row["jumlahpembelian"]; ?> </td>
+            <td> <img src="gambarpembayaranfur/<?= $row["pembayaranfurniture"];  ?>" width="100" > </td>
+            <td> <?= $row["statustransaksi"]; ?> </td>
+            <td> 
+            <p style="text-align:center">
+                 <a href = "veriftransaksi.php?idtransaksi=<?= $row["idtransaksi"]; ?>" onclick="return confirm ('yakin untuk diverifikasi?');" class="btn btn-primary"" role="button"> Terima </a>
+                <br>
+                <br>
+                <a href = "tolaktransaksi.php?idtransaksi=<?= $row["idtransaksi"]; ?>" onclick="return confirm ('yakin untuk ditolak?');" class="btn btn-warning" role="button"> Tolak </a>
+                
+            </p>
+            </td>
+            
+            
+        </tr>
+        <?php $i++;  ?>
+        <?php endforeach; ?>
+        
+        
+        
+    </table>
+    </div>
+
+     <div class="container">
+        <div class="jumbotron">
+            <h2 style="text-align:center; color: white">Verifikasi Pembayaran Furniture</h2>
+
+        </div>
+    </div>
+    <hr>
+    <div class="table-responsive">
+    <table  class="table table-bordered table-striped table-hover">
+
+        <tr>
+                       <th style="text-align:center">No</th style="text-align:center">
+                        <th style="text-align:center">ID</th style="text-align:center">
+                        <th style="text-align:center">ID produk</th style="text-align:center">
+                        <th style="text-align:center">Jumlah Pembelian</th style="text-align:center">
+                        <th style="text-align:center">Pembayaran</th style="text-align:center">
+                        <th style="text-align:center">Status</th style="text-align:center">
+                        <th style="text-align:center">Aksi</th style="text-align:center">
+
+        <?php  $i = 1; ?>
+        <?php  foreach ($transaksibayar as $row ):?>
+        <tr> 
+
+            <td> <?= $i; ?></td>
+            <td> <?= $row["id"]; ?> </td>
+            <td> <?= $row["idproduk"]; ?> </td>
+            <td> <?= $row["jumlahpembelian"]; ?> </td>
+            <td> <img src="gambarpembayaranfur/<?= $row["pembayaranfurniture"];  ?>" width="100" > </td>
+            <td> <?= $row["statustransaksi"]; ?> </td>
+            <td> 
+            <p style="text-align:center">
+                 <a href = "veriftransaksibayar.php?idtransaksi=<?= $row["idtransaksi"]; ?>" onclick="return confirm ('yakin untuk diverifikasi?');" class="btn btn-primary"" role="button"> Terima </a>
+                <br>
+                <br>
+                <a href = "tolaktransaksibayar.php?idtransaksi=<?= $row["idtransaksi"]; ?>" onclick="return confirm ('yakin untuk ditolak?');" class="btn btn-warning" role="button"> Tolak </a>
+                
+            </p>
+            </td>
+            
+            
+        </tr>
+        <?php $i++;  ?>
+        <?php endforeach; ?>
+        
+        
+        
+    </table>
+    </div>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h2 style="text-align:center; color: white">Verifikasi Pengiriman Furniture</h2>
+
+        </div>
+    </div>
+    <hr>
+    <div class="table-responsive">
+    <table  class="table table-bordered table-striped table-hover">
+
+        <tr>
+                       <th style="text-align:center">No</th style="text-align:center">
+                        <th style="text-align:center">ID</th style="text-align:center">
+                        <th style="text-align:center">ID produk</th style="text-align:center">
+                        <th style="text-align:center">Jumlah Pembelian</th style="text-align:center">
+                        <th style="text-align:center">Pembayaran</th style="text-align:center">
+                        <th style="text-align:center">Status</th style="text-align:center">
+                        <th style="text-align:center">Aksi</th style="text-align:center">
+
+        <?php  $i = 1; ?>
+        <?php  foreach ($transaksikirim as $row ):?>
+        <tr> 
+
+            <td> <?= $i; ?></td>
+            <td> <?= $row["id"]; ?> </td>
+            <td> <?= $row["idproduk"]; ?> </td>
+            <td> <?= $row["jumlahpembelian"]; ?> </td>
+            <td> <img src="gambarpembayaranfur/<?= $row["pembayaranfurniture"];  ?>" width="100" > </td>
+            <td> <?= $row["statustransaksi"]; ?> </td>
+            <td> 
+            <p style="text-align:center">
+                 <a href = "veriftransaksikirim.php?idtransaksi=<?= $row["idtransaksi"]; ?>" onclick="return confirm ('yakin untuk melakukan proses pengiriman?');" class="btn btn-primary"" role="button"> Kirim </a>
+                
+            </p>
+            </td>
+            
+            
+        </tr>
+        <?php $i++;  ?>
+        <?php endforeach; ?>
+        
+        
+        
+    </table>
+    </div>
+
 </div>
         <hr>
         <p style="text-align : center;">
